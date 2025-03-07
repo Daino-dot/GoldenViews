@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html dir='ltr' lang='es-GB'>
+<head>
+<meta content='width=device-width, initial-scale=1' name='viewport'/>
+<title>Made - by Daino</title>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<style>
+:root {
+    --gold: #f5b26f;
+    --dark-bg: #0a0a0a;
+}
+
+body {
+    background: linear-gradient(45deg, var(--dark-bg) 30%, #1a1a1a);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.header-container {
+    padding: 2rem 0;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: -1px;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.input-section {
+    background: rgba(255,255,255,0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(8px);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.input-label {
+    font-size: 1.1rem;
+    min-width: 100px;
+    text-align: right;
+}
+
+.input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input:focus {
+    border-color: var(--gold);
+    outline: none;
+    box-shadow: 0 0 8px var(--gold);
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+button {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(245,178,111,0.2), transparent);
+    transition: 0.5s;
+}
+
+button:hover {
+    background: rgba(245,178,111,0.1);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+#player {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    justify-content: center;
+}
+
+#player iframe {
+    width: 100%;
+    height: 160px;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease;
+}
+
+#player iframe:hover {
+    transform: scale(1.02);
+}
+
+.promo-footer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.05);
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(4px);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+</style>
+</head>
+<body>
+<div class="header-container">
+    <div class="container">
+        <h1>YouTube Views Generator</h1>
+    </div>
+</div>
+
+<div class="input-section">
+    <div class="input-group">
+        <label class="input-label">Video URL</label>
+        <input class="input" id="urlvideo" placeholder="https://youtube.com/..." />
+    </div>
+    
+    <div class="input-group">
+        <label class="input-label">Views Quantity</label>
+        <input class="input" id="nbrvideo" type="number" value="3" min="1" max="50" />
+    </div>
+
+    <div class="button-container">
+        <button onclick="playVideo()">START GENERATOR</button>
+    </div>
+</div>
+
+<div id="player"></div>
+
+<div class="social-links">
+    <a href="https://youtube.com/@daino_daino9559" target="_blank">
+        <button>YouTube</button>
+    </a>
+    <a href="https://discord.gg/y92sn3EsWR" target="_blank">
+        <button>Discord</button>
+    </a>
+    <a href="https://github.com/Daino-dot" target="_blank">
+        <button>GitHub</button>
+    </a>
+</div>
+
+<div class="promo-footer">
+    -Daino
+</div>
+
+<script>
+function playVideo() { 
+    document.getElementById('player').innerHTML = '';
+    const urlvid = document.getElementById("urlvideo").value;
+    const n = Math.min(50, Math.max(1, document.getElementById("nbrvideo").value));
+
+    if(!urlvid) return alert('Please enter a valid YouTube URL');
+
+    let vid;
+    try {
+        if(urlvid.includes("youtu.be")) {
+            vid = urlvid.split("/")[3].split("?")[0];
+        } else {
+            vid = urlvid.split("v=")[1].split("&")[0];
+        }
+    } catch {
+        return alert('Invalid YouTube URL format');
+    }
+
+    const embedUrl = `https://www.youtube.com/embed/${vid}?autoplay=1&mute=1&loop=1`;
+
+    for(let i = 0; i < n; i++) {
+        const iframe = document.createElement('iframe');
+        iframe.src = embedUrl;
+        iframe.allow = "autoplay; encrypted-media";
+        document.getElementById('player').appendChild(iframe);
+    }
+}
+</script>
+</body>
+</html>
