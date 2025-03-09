@@ -8,7 +8,7 @@ Disclaimer: This tool is intended for educational/experimental purposes only. It
 
 github.com/Daino-dot
 dc   $  daino_daino
-srv  $  https://discord.gg/y92sn3EsWR
+srv  $  discord.gg/y92sn3EsWR
 
 ## ✨ Features
 - 🎥 Responsive YouTube embed generator
