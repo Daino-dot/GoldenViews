@@ -6,7 +6,7 @@ A modern YouTube view generator with elegant UI/UX design. Perfect for testing v
 
 Disclaimer: This tool is intended for educational/experimental purposes only. It does not manipulate real view counts.
 
-https://github.com/Daino-dot
+github.com/Daino-dot
 dc   $  daino_daino
 srv  $  https://discord.gg/y92sn3EsWR
 
